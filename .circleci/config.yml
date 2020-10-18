@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.9
+    working_directory: /go/src/github.com/yun-ding/Go-Around
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: |
+          docker build -t yunding0/around .
+          docker login -u="$DOCKERHUB_USERNAME" -p="$DOCKERHUB_PASSWORD"
+          docker push yunding0/around
+
